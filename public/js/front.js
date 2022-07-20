@@ -1995,7 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Footer'
+  name: 'FooterComp'
 });
 
 /***/ }),
@@ -2010,7 +2010,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Header'
+  name: 'HeaderComp'
 });
 
 /***/ }),
@@ -2030,7 +2030,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("HeaderComp"), _vm._v(" "), _c("router-view"), _vm._v(" "), _c("FooterComp")], 1);
+  return _c("div", [_c("HeaderComp"), _vm._v(" "), _c("main", [_c("router-view")], 1), _vm._v(" "), _c("FooterComp")], 1);
 };
 
 var staticRenderFns = [];
@@ -2199,34 +2199,36 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("header", {}, [_c("div", {
     staticClass: "container"
-  }, [_c("nav", [_c("ul", [_c("li", [_c("a", {
-    staticClass: "active",
+  }, [_c("nav", [_c("ul", [_c("li", [_c("router-link", {
     attrs: {
-      href: ""
+      to: {
+        name: "home"
+      }
     }
-  }, [_vm._v("Home")])]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._v("Home")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
-      href: ""
+      to: {
+        name: "blog"
+      }
     }
-  }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._v("Blog")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
-      href: ""
+      to: {
+        name: "about"
+      }
     }
-  }, [_vm._v("About")])]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._v("About")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
-      href: ""
+      to: {
+        name: "contatti"
+      }
     }
-  }, [_vm._v("Contatti")])])])])])]);
-}];
+  }, [_vm._v("Contatti")])], 1)])])])]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2244,7 +2246,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "footer[data-v-de99f5e8] {\n  background-color: grey;\n  color: black;\n  text-align: center;\n  padding: 25px 0;\n}", ""]);
+exports.push([module.i, "footer[data-v-de99f5e8] {\n  background-color: grey;\n  color: black;\n  text-align: center;\n  height: 60px;\n  padding: 20px 0;\n}", ""]);
 
 // exports
 
@@ -2263,7 +2265,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "header[data-v-494e1ffe] {\n  background-color: #f79845;\n  padding: 12px;\n  text-align: center;\n}\nheader ul[data-v-494e1ffe] {\n  list-style: none;\n}\nheader ul li[data-v-494e1ffe] {\n  display: inline-block;\n}\nheader ul li a[data-v-494e1ffe] {\n  color: white;\n  text-decoration: none;\n  margin: 0 12px;\n}\nheader ul li a[data-v-494e1ffe]:hover {\n  text-decoration: underline;\n}\nheader ul li a.active[data-v-494e1ffe] {\n  color: green;\n  font-weight: bold;\n}", ""]);
+exports.push([module.i, "header[data-v-494e1ffe] {\n  background-color: #f79845;\n  padding: 5px;\n  text-align: center;\n}\nheader ul[data-v-494e1ffe] {\n  list-style: none;\n}\nheader ul li[data-v-494e1ffe] {\n  display: inline-block;\n}\nheader ul li a[data-v-494e1ffe] {\n  color: white;\n  text-decoration: none;\n  margin: 0 12px;\n  font-size: 1.2rem;\n}\nheader ul li a[data-v-494e1ffe]:hover {\n  text-decoration: underline;\n}\nheader ul li a.active[data-v-494e1ffe] {\n  color: green;\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -18367,6 +18369,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
+  linkExactActiveClass: 'active',
   routes: [{
     path: '/',
     name: 'home',

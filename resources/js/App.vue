@@ -3,7 +3,9 @@
     <div>
         <HeaderComp />
 
-        <router-view></router-view>
+        <main>
+            <router-view></router-view>
+        </main>
 
         <FooterComp />
     </div>

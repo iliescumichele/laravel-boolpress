@@ -10963,12 +10963,18 @@ body {
   background-color: #ffdc9a;
 }
 
+main {
+  min-height: calc(100vh - 135px);
+}
+
 .container {
   width: 75%;
   max-width: 1000px;
+  margin: 0 auto;
+  padding: 25px;
 }
 
 li {
-  margin: 40px auto;
+  margin: 10px auto;
 }
 

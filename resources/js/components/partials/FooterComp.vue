@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'Footer'
+    name: 'FooterComp'
 }
 </script>
 
@@ -17,6 +17,7 @@ export default {
         background-color: grey;    
         color: black;
         text-align: center;
-        padding: 25px 0;
+        height: 60px;
+        padding: 20px 0;
     }
 </style>

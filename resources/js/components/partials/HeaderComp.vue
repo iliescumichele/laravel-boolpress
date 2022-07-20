@@ -4,17 +4,18 @@
             <nav>
                 <ul>
                     <li>
-                        <a class="active" href="">Home</a>
+                        <router-link :to="{ name: 'home'}">Home</router-link>
                     </li>
                     <li>
-                        <a href="">Blog</a>
+                        <router-link :to="{ name: 'blog'}">Blog</router-link>
                     </li>
                     <li>
-                        <a href="">About</a>
+                        <router-link :to="{ name: 'about'}">About</router-link>
                     </li>
                     <li>
-                        <a href="">Contatti</a>
+                        <router-link :to="{ name: 'contatti'}">Contatti</router-link>
                     </li>
+                    
                 </ul>
             </nav>
         </div>
@@ -23,14 +24,14 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'HeaderComp'
 }
 </script>
 
 <style lang="scss" scoped>
     header{
         background-color: #f79845;
-        padding: 12px;
+        padding: 5px;
         text-align: center;
         ul{
             list-style: none;
@@ -40,6 +41,7 @@ export default {
                     color: white;
                     text-decoration: none;
                     margin: 0 12px;
+                    font-size: 1.2rem;
                     &:hover{
                         text-decoration: underline;
                     }

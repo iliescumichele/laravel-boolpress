@@ -14,6 +14,7 @@ import ContattiComp from './components/pages/ContattiComp';
 //creazione router
 const router = new VueRouter({
     mode: 'history',
+    linkExactActiveClass: 'active',
     routes: [
         {
             path: '/',
