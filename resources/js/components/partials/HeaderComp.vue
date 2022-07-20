@@ -10,7 +10,7 @@
                         <a href="">Blog</a>
                     </li>
                     <li>
-                        <a href="">Chi siamo</a>
+                        <a href="">About</a>
                     </li>
                     <li>
                         <a href="">Contatti</a>
