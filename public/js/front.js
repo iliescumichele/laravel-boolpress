@@ -1918,25 +1918,9 @@ __webpack_require__.r(__webpack_exports__);
     HeaderComp: _components_partials_HeaderComp__WEBPACK_IMPORTED_MODULE_0__["default"],
     FooterComp: _components_partials_FooterComp__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  data: function data() {
-    return {
-      apiUrl: '/api/posts',
-      posts: null
-    };
-  },
-  methods: {
-    getApi: function getApi() {
-      var _this = this;
-
-      axios.get(this.apiUrl).then(function (response) {
-        _this.posts = response.data;
-        console.log(_this.posts);
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.getApi();
-  }
+  data: function data() {},
+  methods: {},
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2046,13 +2030,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("HeaderComp"), _vm._v(" "), _c("div", {
-    staticClass: "container"
-  }, [_c("h1", [_vm._v("HOME VUE")]), _vm._v(" "), _c("ul", _vm._l(_vm.posts, function (post) {
-    return _c("li", {
-      key: post.id
-    }, [_c("h3", [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(post.content))])]);
-  }), 0)]), _vm._v(" "), _c("FooterComp")], 1);
+  return _c("div", [_c("HeaderComp"), _vm._v(" "), _c("router-view"), _vm._v(" "), _c("FooterComp")], 1);
 };
 
 var staticRenderFns = [];
@@ -2163,10 +2141,15 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div");
+  return _vm._m(0);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("h1", [_vm._v("HOME")])]);
+}];
 render._withStripped = true;
 
 
@@ -18387,19 +18370,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/',
     name: 'home',
-    component: 'HomeComp'
+    component: _components_pages_HomeComp__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/about',
     name: 'about',
-    component: 'AboutComp'
+    component: _components_pages_AboutComp__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/contatti',
     name: 'contatti',
-    component: 'ContattiComp'
+    component: _components_pages_ContattiComp__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/blog',
     name: 'blog',
-    component: 'BlogComp'
+    component: _components_pages_BlogComp__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
 }); //esportazione router, per poi importarlo in front.js che inizializza vue
 

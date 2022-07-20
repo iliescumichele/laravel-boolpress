@@ -18,23 +18,23 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'home',
-            component: 'HomeComp'
+            component: HomeComp
         },
         {
             path: '/about',
             name: 'about',
-            component: 'AboutComp'
+            component: AboutComp
         },
         {
             path: '/contatti',
             name: 'contatti',
-            component: 'ContattiComp'
+            component: ContattiComp
         },
         {
             path: '/blog',
             name: 'blog',
-            component: 'BlogComp'
-        },
+            component: BlogComp
+        }
     ]
 });
 
