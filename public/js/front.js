@@ -1918,7 +1918,9 @@ __webpack_require__.r(__webpack_exports__);
     HeaderComp: _components_partials_HeaderComp__WEBPACK_IMPORTED_MODULE_0__["default"],
     FooterComp: _components_partials_FooterComp__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  data: function data() {},
+  data: function data() {
+    return {};
+  },
   methods: {},
   mounted: function mounted() {}
 });
@@ -1962,19 +1964,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       apiUrl: "/api/posts",
-      posts: null
+      posts: null,
+      pagination: {
+        current: null,
+        last: null
+      }
     };
   },
   mounted: function mounted() {
-    this.getApi();
+    this.getApi(1);
   },
   methods: {
-    getApi: function getApi() {
+    getApi: function getApi(page) {
       var _this = this;
 
-      axios.get(this.apiUrl).then(function (response) {
-        _this.posts = response.data;
-        console.log(_this.posts);
+      axios.get(this.apiUrl + "?page=" + page).then(function (response) {
+        _this.posts = response.data.data;
+        _this.pagination = {
+          current: response.data.current_page,
+          last: response.data.last_page
+        };
       });
     }
   }
@@ -2137,7 +2146,7 @@ var render = function render() {
   }, [_c("h1", {
     staticClass: "text-center"
   }, [_vm._v("Blog")]), _vm._v(" "), _c("div", {
-    staticClass: "container-fluid cards"
+    staticClass: "cards"
   }, _vm._l(_vm.posts, function (post) {
     return _c("PostItemComp", {
       key: post.id,
@@ -2145,7 +2154,39 @@ var render = function render() {
         item: post
       }
     });
-  }), 1)]);
+  }), 1), _vm._v(" "), _c("div", {
+    staticClass: "buttons-pagination"
+  }, [_c("button", {
+    attrs: {
+      disabled: _vm.pagination.current === 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApi(_vm.pagination.current - 1);
+      }
+    }
+  }, [_vm._v("<-")]), _vm._v(" "), _vm._l(_vm.pagination.last, function (i) {
+    return _c("button", {
+      key: i,
+      attrs: {
+        disabled: _vm.pagination.current === i
+      },
+      on: {
+        click: function click($event) {
+          return _vm.getApi(i);
+        }
+      }
+    }, [_vm._v(_vm._s(i))]);
+  }), _vm._v(" "), _c("button", {
+    attrs: {
+      disabled: _vm.pagination.current === _vm.pagination.last
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApi(_vm.pagination.current + 1);
+      }
+    }
+  }, [_vm._v("->")])], 2)]);
 };
 
 var staticRenderFns = [];
@@ -2333,7 +2374,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".cards[data-v-02893632] {\n  display: flex;\n  flex-wrap: wrap;\n  margin: 25px auto;\n}", ""]);
+exports.push([module.i, ".cards[data-v-02893632] {\n  display: flex;\n  flex-wrap: wrap;\n  margin: 25px auto;\n}\nbutton[data-v-02893632] {\n  padding: 8px;\n  border-radius: 10px;\n  background-color: rgb(206, 232, 253);\n}", ""]);
 
 // exports
 
@@ -2390,7 +2431,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-4df86cc4] {\n  margin: 25px auto;\n  padding: 10px;\n  border-radius: 15px;\n  width: 48%;\n  text-align: center;\n}\n.card p[data-v-4df86cc4] {\n  margin-top: 10px;\n}", ""]);
+exports.push([module.i, ".card[data-v-4df86cc4] {\n  margin: 10px auto;\n  padding: 10px;\n  border-radius: 15px;\n  width: 48%;\n  text-align: center;\n}\n.card p[data-v-4df86cc4] {\n  margin-top: 10px;\n}", ""]);
 
 // exports
 

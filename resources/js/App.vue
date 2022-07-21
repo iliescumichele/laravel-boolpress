@@ -15,6 +15,7 @@
 <script>
 import HeaderComp from './components/partials/HeaderComp';
 import FooterComp from './components/partials/FooterComp';
+
 export default {
     name: 'App',
     components: {
@@ -23,7 +24,7 @@ export default {
     },
 
     data() {
-
+        return{}
     },
 
     methods: {

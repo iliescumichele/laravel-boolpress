@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <h1 class="text-center">Blog</h1>
-    <div class="container-fluid cards">
+    <div class="cards">
 
         <PostItemComp
             v-for="post in posts"
@@ -9,6 +9,23 @@
             :item="post"
         />
 
+    </div>
+
+    <div class="buttons-pagination">
+        <button @click="getApi( pagination.current -1 )"
+            :disabled = "pagination.current === 1"
+        ><-</button>
+
+        <button
+            v-for="i in pagination.last"
+            :key="i"
+            @click="getApi(i)"
+            :disabled="pagination.current === i"
+        >{{i}}</button>
+
+        <button @click="getApi( pagination.current +1 )"
+            :disabled = "pagination.current === pagination.last"
+        >-></button>
     </div>
 </div>
 </template>
@@ -26,18 +43,27 @@ export default {
     data() {
         return {
             apiUrl: "/api/posts",
-            posts: null
+            posts: null,
+            pagination: {
+                current: null,
+                last: null
+            }
         };
     },
+
     mounted() {
-        this.getApi();
+        this.getApi(1);
     },
+
     methods: {
-        getApi() {
-            axios.get(this.apiUrl)
+        getApi(page) {
+            axios.get(this.apiUrl + "?page=" + page)
                 .then(response => {
-                this.posts = response.data;
-                console.log(this.posts);
+                this.posts = response.data.data;
+                this.pagination = {
+                    current: response.data.current_page,
+                    last: response.data.last_page
+                }
             });
         }
     },
@@ -50,5 +76,11 @@ export default {
         display: flex;
         flex-wrap: wrap;
         margin: 25px auto;
+    }
+
+    button{
+        padding: 8px;
+        border-radius: 10px;
+        background-color: rgb(206, 232, 253);
     }
 </style>>
