@@ -4,7 +4,7 @@
         <HeaderComp />
 
         <main>
-            <router-view></router-view>
+            <router-view> </router-view>
         </main>
 
         <FooterComp />
@@ -19,16 +19,16 @@ export default {
     name: 'App',
     components: {
         HeaderComp,
-        FooterComp 
+        FooterComp
     },
 
     data() {
-        
-            
+
+
     },
 
     methods: {
-        
+
     },
 
     mounted() {
