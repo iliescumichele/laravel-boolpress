@@ -26,4 +26,9 @@ Route::get('prova', function(){
 });
 
 
-Route::get('posts', 'Api\PageController@index');
+route::namespace( 'Api' )
+    ->prefix( 'posts' )
+    ->group( function(){
+        Route::get('/', 'PageController@index');
+        Route::get('/{slug}', 'PageController@show');
+    });

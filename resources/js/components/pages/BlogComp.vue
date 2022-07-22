@@ -1,31 +1,38 @@
 <template>
 <div class="container">
-    <h1 class="text-center">Blog</h1>
-    <div class="cards">
+    <h1 class="text-center position-relative">Blog</h1>
 
-        <PostItemComp
-            v-for="post in posts"
-            :key="post.id"
-            :item="post"
-        />
-
+    <div class="box-loader" v-if="!posts">
+        <LoaderComp/>
     </div>
 
-    <div class="buttons-pagination">
-        <button @click="getApi( pagination.current -1 )"
-            :disabled = "pagination.current === 1"
-        ><-</button>
+    <div v-else>
+        <div class="cards">
 
-        <button
-            v-for="i in pagination.last"
-            :key="i"
-            @click="getApi(i)"
-            :disabled="pagination.current === i"
-        >{{i}}</button>
+            <PostItemComp
+                v-for="post in posts"
+                :key="post.id"
+                :item="post"
+            />
 
-        <button @click="getApi( pagination.current +1 )"
-            :disabled = "pagination.current === pagination.last"
-        >-></button>
+        </div>
+
+        <div class="buttons-pagination">
+            <button @click="getApi( pagination.current -1 )"
+                :disabled = "pagination.current === 1"
+            ><-</button>
+
+            <button
+                v-for="i in pagination.last"
+                :key="i"
+                @click="getApi(i)"
+                :disabled="pagination.current === i"
+            >{{i}}</button>
+
+            <button @click="getApi( pagination.current +1 )"
+                :disabled = "pagination.current === pagination.last"
+            >-></button>
+        </div>
     </div>
 </div>
 </template>
@@ -33,6 +40,7 @@
 <script>
 // import Axios from 'axios';
 import PostItemComp from '../partials/PostItemComp.vue';
+import LoaderComp from '../partials/LoaderComp.vue';
 
 export default {
     name: "BlogComp",
@@ -57,6 +65,8 @@ export default {
 
     methods: {
         getApi(page) {
+            this.posts = null;
+
             axios.get(this.apiUrl + "?page=" + page)
                 .then(response => {
                 this.posts = response.data.data;
@@ -67,20 +77,30 @@ export default {
             });
         }
     },
-    components: { PostItemComp }
+    components: { PostItemComp, LoaderComp }
 }
 </script>
 
 <style lang="scss" scoped>
+    .box-loader{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+    }
+
     .cards{
         display: flex;
         flex-wrap: wrap;
         margin: 25px auto;
     }
 
-    button{
-        padding: 8px;
-        border-radius: 10px;
-        background-color: rgb(206, 232, 253);
+    .buttons-pagination{
+        button{
+            padding: 8px;
+            border-radius: 10px;
+            background-color: rgb(206, 232, 253);
+        }
     }
 </style>>

@@ -13,4 +13,10 @@ class PageController extends Controller
         $posts = Post::with( ['category', 'tags'] ) -> paginate(6);
         return response() -> json( $posts );
     }
+
+    public function show($slug) {
+
+        $post = Post::where('slug', $slug) -> with( ['gategoty', 'tags'] ) ->first();
+        return response() -> json($post);
+    }
 }
