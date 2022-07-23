@@ -16,7 +16,7 @@ class PageController extends Controller
 
     public function show($slug) {
 
-        $post = Post::where('slug', $slug) -> with( ['gategoty', 'tags'] ) ->first();
+        $post = Post::where('slug', $slug) -> with( ['category', 'tags'] ) ->first();
         return response() -> json($post);
     }
 }

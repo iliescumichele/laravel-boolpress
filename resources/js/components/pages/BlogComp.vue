@@ -41,6 +41,7 @@
 // import Axios from 'axios';
 import PostItemComp from '../partials/PostItemComp.vue';
 import LoaderComp from '../partials/LoaderComp.vue';
+import {apiUrl} from '../../data/config';
 
 export default {
     name: "BlogComp",
@@ -50,7 +51,7 @@ export default {
 
     data() {
         return {
-            apiUrl: "/api/posts",
+            apiUrl,
             posts: null,
             pagination: {
                 current: null,

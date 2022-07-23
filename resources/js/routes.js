@@ -10,6 +10,7 @@ import HomeComp from './components/pages/HomeComp';
 import BlogComp from './components/pages/BlogComp';
 import AboutComp from './components/pages/AboutComp';
 import ContattiComp from './components/pages/ContattiComp';
+import PostDetailComp from './components/pages/PostDetailComp';
 
 //creazione router
 const router = new VueRouter({
@@ -35,7 +36,12 @@ const router = new VueRouter({
             path: '/blog',
             name: 'blog',
             component: BlogComp
-        }
+        },
+        {
+            path: '/dettaglio-post/:slug',
+            name: 'detail',
+            component: PostDetailComp
+        },
     ]
 });
 

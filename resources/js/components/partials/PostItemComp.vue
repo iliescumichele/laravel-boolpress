@@ -3,6 +3,13 @@
     <h3>{{ item.title }}</h3>
     <p>{{ shortContent }}</p>
     <i class="date">{{ formatDate }}</i>
+
+    <!-- <button> -->
+        <router-link :to="{ name: 'detail', params: {slug: item.slug} }"
+            class="link-item"
+            >Vedi di pi&uacute;
+        </router-link>
+    <!-- </button> -->
   </div>
 </template>
 
@@ -53,6 +60,23 @@ export default {
             left: 0;
             right: 0;
             margin: auto;
+        }
+
+        .link-item{
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            //border: 1px solid black;
+            border-radius: 15px;
+            padding: 8px;
+            background-color: rgb(229, 229, 229);
+            text-decoration: none;
+            color: rgb(0, 128, 255);
+
+            &:hover{
+                transform: scale(1.02);
+                box-shadow: 2px 2px rgb(108, 108, 108);
+            }
         }
     }
 </style>
