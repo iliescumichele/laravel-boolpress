@@ -11,6 +11,7 @@ import BlogComp from './components/pages/BlogComp';
 import AboutComp from './components/pages/AboutComp';
 import ContattiComp from './components/pages/ContattiComp';
 import PostDetailComp from './components/pages/PostDetailComp';
+import Error404Comp from './components/pages/Error404Comp';
 
 //creazione router
 const router = new VueRouter({
@@ -41,6 +42,10 @@ const router = new VueRouter({
             path: '/dettaglio-post/:slug',
             name: 'detail',
             component: PostDetailComp
+        },
+        {
+            path: '*',
+            component: Error404Comp
         },
     ]
 });
