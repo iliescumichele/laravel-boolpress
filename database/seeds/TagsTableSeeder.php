@@ -17,7 +17,6 @@ class TagsTableSeeder extends Seeder
             'Front End',
             'Back End',
             'Design',
-            'Design',
             'UX',
             'VueJs',
             'Laravel',

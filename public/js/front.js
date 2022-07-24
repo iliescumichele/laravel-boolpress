@@ -1976,7 +1976,9 @@ __webpack_require__.r(__webpack_exports__);
         last: null
       },
       categories: [],
-      tags: []
+      tags: [],
+      searchType: '',
+      showPagination: false
     };
   },
   mounted: function mounted() {
@@ -1987,6 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.posts = null;
+      this.searchType = '';
       axios.get(this.apiUrl + "?page=" + page).then(function (response) {
         _this.posts = response.data.posts.data;
         _this.pagination = {
@@ -1995,6 +1998,28 @@ __webpack_require__.r(__webpack_exports__);
         };
         _this.categories = response.data.categories;
         _this.tags = response.data.tags;
+        _this.showPagination = true;
+      });
+    },
+    searchPostsByCategory: function searchPostsByCategory(slug_category) {
+      var _this2 = this;
+
+      axios.get(this.apiUrl + '/post-category/' + slug_category).then(function (response) {
+        _this2.searchType = response.data.name;
+        _this2.posts = response.data.posts;
+        _this2.showPagination = false;
+      });
+    },
+    searchPostsByTag: function searchPostsByTag(slug_tag) {
+      var _this3 = this;
+
+      axios.get(this.apiUrl + '/post-tag/' + slug_tag).then(function (response) {
+        console.log(response);
+        _this3.searchType = response.data.name;
+        console.log(_this3.searchType);
+        _this3.posts = response.data.post;
+        console.log(_this3.posts);
+        _this3.showPagination = false;
       });
     }
   }
@@ -2247,16 +2272,16 @@ var render = function render() {
     staticClass: "post-container"
   }, [_c("h1", {
     staticClass: "text-center position-relative"
-  }, [_vm._v("Blog")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("I miei post "), _c("span", [_vm._v(_vm._s(_vm.searchType))])]), _vm._v(" "), _c("div", {
     staticClass: "cards"
   }, _vm._l(_vm.posts, function (post) {
     return _c("PostItemComp", {
-      key: post.id,
+      key: post.slug,
       attrs: {
         item: post
       }
     });
-  }), 1), _vm._v(" "), _c("div", {
+  }), 1), _vm._v(" "), _vm.showPagination ? _c("div", {
     staticClass: "buttons-pagination"
   }, [_c("button", {
     attrs: {
@@ -2269,7 +2294,7 @@ var render = function render() {
     }
   }, [_vm._v("<<")]), _vm._v(" "), _vm._l(_vm.pagination.last, function (i) {
     return _c("button", {
-      key: i,
+      key: "btn".concat(i),
       attrs: {
         disabled: _vm.pagination.current === i
       },
@@ -2288,10 +2313,17 @@ var render = function render() {
         return _vm.getApi(_vm.pagination.current + 1);
       }
     }
-  }, [_vm._v(">>")])], 2)]), _vm._v(" "), _c("SideBarComp", {
+  }, [_vm._v(">>")])], 2) : _vm._e()]), _vm._v(" "), _c("SideBarComp", {
     attrs: {
       categories: _vm.categories,
       tags: _vm.tags
+    },
+    on: {
+      searchPostsByCategory: _vm.searchPostsByCategory,
+      searchPostsByTag: _vm.searchPostsByTag,
+      searchAllPosts: function searchAllPosts($event) {
+        return _vm.getApi(1);
+      }
     }
   })], 1);
 };
@@ -2564,15 +2596,34 @@ var render = function render() {
     staticClass: "lista"
   }, [_c("h3", [_vm._v("Categorie")]), _vm._v(" "), _c("ul", _vm._l(_vm.categories, function (category) {
     return _c("li", {
-      key: "cat".concat(category.id)
+      key: "cat".concat(category.id),
+      on: {
+        click: function click($event) {
+          return _vm.$emit("searchPostsByCategory", category.slug);
+        }
+      }
     }, [_vm._v("\n                    " + _vm._s(category.name) + "\n                ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "lista"
   }, [_c("h3", [_vm._v("Tag")]), _vm._v(" "), _c("ul", _vm._l(_vm.tags, function (tag) {
     return _c("li", {
-      key: "cat".concat(tag.id)
+      key: "cat".concat(tag.id),
+      on: {
+        click: function click($event) {
+          return _vm.$emit("searchPostsByTag", tag.slug);
+        }
+      }
     }, [_vm._v("\n                    " + _vm._s(tag.name) + "\n                ")]);
-  }), 0)])]);
+  }), 0)]), _vm._v(" "), _c("div", {
+    staticClass: "lista"
+  }, [_c("ul", [_c("li", {
+    staticClass: "link-all-posts",
+    on: {
+      click: function click($event) {
+        return _vm.$emit("searchAllPosts");
+      }
+    }
+  }, [_vm._v("\n                    Tutti i posts\n                ")])])])]);
 };
 
 var staticRenderFns = [];
@@ -2593,7 +2644,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".container[data-v-02893632] {\n  display: flex;\n}\n.container .box-loader[data-v-02893632] {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-top: 200px;\n  transform: translate(-50%, -50%);\n}\n.post-container[data-v-02893632] {\n  flex-basis: 85%;\n}\n.post-container h1[data-v-02893632] {\n  text-decoration: underline;\n  text-underline-offset: 10px;\n}\n.post-container .cards[data-v-02893632] {\n  display: flex;\n  flex-wrap: wrap;\n  margin: 25px auto;\n}\n.post-container .buttons-pagination button[data-v-02893632] {\n  padding: 8px;\n  border-radius: 10px;\n  background-color: rgb(206, 232, 253);\n}", ""]);
+exports.push([module.i, ".container[data-v-02893632] {\n  display: flex;\n}\n.container .box-loader[data-v-02893632] {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-top: 200px;\n  transform: translate(-50%, -50%);\n}\n.post-container[data-v-02893632] {\n  flex-basis: 80%;\n}\n.post-container h1[data-v-02893632] {\n  text-decoration: underline;\n  text-underline-offset: 10px;\n}\n.post-container h1 span[data-v-02893632] {\n  color: red;\n}\n.post-container .cards[data-v-02893632] {\n  display: flex;\n  flex-wrap: wrap;\n  margin: 25px auto;\n}\n.post-container .buttons-pagination button[data-v-02893632] {\n  padding: 8px;\n  border-radius: 10px;\n  background-color: rgb(206, 232, 253);\n}", ""]);
 
 // exports
 
@@ -2707,7 +2758,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".sidebar[data-v-497c4e99] {\n  padding-left: 50px;\n}\n.sidebar .lista[data-v-497c4e99] {\n  margin-bottom: 20px;\n}\n.sidebar .lista ul[data-v-497c4e99] {\n  list-style: none;\n}", ""]);
+exports.push([module.i, ".sidebar[data-v-497c4e99] {\n  padding-left: 50px;\n}\n.sidebar .lista[data-v-497c4e99] {\n  margin-bottom: 20px;\n}\n.sidebar .lista ul[data-v-497c4e99] {\n  list-style: none;\n}\n.sidebar .lista ul li[data-v-497c4e99] {\n  cursor: pointer;\n}\n.sidebar .lista ul li[data-v-497c4e99]:hover {\n  text-decoration: underline;\n}\n.sidebar .lista ul li.link-all-posts[data-v-497c4e99] {\n  font-weight: 800;\n  font-size: 1.1rem;\n  margin-top: 15px;\n}\n.sidebar .lista ul li.link-all-posts[data-v-497c4e99]:before {\n  content: \"- \";\n}\n.sidebar .lista ul li.link-all-posts[data-v-497c4e99]:after {\n  content: \" -\";\n}", ""]);
 
 // exports
 

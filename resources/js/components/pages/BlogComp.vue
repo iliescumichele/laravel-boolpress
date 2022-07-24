@@ -8,26 +8,26 @@
 
     <!-- elenco posts -->
     <div class="post-container" v-else>
-        <h1 class="text-center position-relative">Blog</h1>
+        <h1 class="text-center position-relative">I miei post <span>{{searchType}}</span></h1>
 
         <div class="cards">
 
             <PostItemComp
                 v-for="post in posts"
-                :key="post.id"
+                :key="post.slug"
                 :item="post"
             />
 
         </div>
 
-        <div class="buttons-pagination">
+        <div v-if="showPagination" class="buttons-pagination">
             <button @click="getApi( pagination.current -1 )"
                 :disabled = "pagination.current === 1"
             >&lt;&lt;</button>
 
             <button
                 v-for="i in pagination.last"
-                :key="i"
+                :key="`btn${i}`"
                 @click="getApi(i)"
                 :disabled="pagination.current === i"
             >{{i}}</button>
@@ -42,6 +42,9 @@
     <SideBarComp
         :categories = "categories"
         :tags = "tags"
+        @searchPostsByCategory = "searchPostsByCategory"
+        @searchPostsByTag = "searchPostsByTag"
+        @searchAllPosts = "getApi(1)"
     />
 
 
@@ -74,7 +77,9 @@ export default {
                 last: null
             },
             categories: [],
-            tags: []
+            tags: [],
+            searchType: '',
+            showPagination: false
         };
     },
 
@@ -85,6 +90,7 @@ export default {
     methods: {
         getApi(page) {
             this.posts = null;
+            this.searchType = ''
 
             axios.get(this.apiUrl + "?page=" + page)
                 .then(response => {
@@ -95,8 +101,30 @@ export default {
                 }
                 this.categories = response.data.categories;
                 this.tags = response.data.tags;
+                this.showPagination = true;
             });
-        }
+        },
+
+        searchPostsByCategory(slug_category){
+            axios.get(this.apiUrl + '/post-category/' + slug_category)
+            .then( response => {
+                this.searchType = response.data.name
+                this.posts = response.data.posts
+                this.showPagination = false
+            })
+        },
+
+        searchPostsByTag(slug_tag){
+            axios.get(this.apiUrl + '/post-tag/' + slug_tag)
+            .then( response => {
+                console.log(response);
+                this.searchType = response.data.name
+                console.log(this.searchType);
+                this.posts = response.data.post
+                console.log(this.posts);
+                this.showPagination = false
+            })
+        },
     }
 }
 </script>
@@ -115,12 +143,14 @@ export default {
         }
     }
     .post-container{
-        flex-basis: 85%;
+        flex-basis: 80%;
 
         h1{
             text-decoration: underline;
             text-underline-offset: 10px;
-
+            span{
+                color: red;
+            }
         }
 
         .cards{
