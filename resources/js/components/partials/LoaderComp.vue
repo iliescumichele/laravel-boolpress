@@ -10,7 +10,7 @@ export default {
 
 <style lang="scss" scoped>
     .loader {
-    animation: rotate 1s infinite;
+    animation: rotate .7s infinite;
     padding: 10px;
     height: 50px;
     width: 50px;
@@ -26,13 +26,13 @@ export default {
     width: 20px;
   }
   .loader:before {
-    animation: ball1 1s infinite;
+    animation: ball1 .7s infinite;
     background-color: #fff;
     box-shadow: 30px 0 0 #ff3d00;
     margin-bottom: 10px;
   }
   .loader:after {
-    animation: ball2 1s infinite;
+    animation: ball2 .7s infinite;
     background-color: #ff3d00;
     box-shadow: 30px 0 0 #fff;
   }

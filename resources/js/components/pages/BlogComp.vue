@@ -1,12 +1,15 @@
 <template>
+<!-- main div -->
 <div class="container">
-    <h1 class="text-center position-relative">Blog</h1>
 
     <div class="box-loader" v-if="!posts">
         <LoaderComp/>
     </div>
 
-    <div v-else>
+    <!-- elenco posts -->
+    <div class="post-container" v-else>
+        <h1 class="text-center position-relative">Blog</h1>
+
         <div class="cards">
 
             <PostItemComp
@@ -20,7 +23,7 @@
         <div class="buttons-pagination">
             <button @click="getApi( pagination.current -1 )"
                 :disabled = "pagination.current === 1"
-            ><-</button>
+            >&lt;&lt;</button>
 
             <button
                 v-for="i in pagination.last"
@@ -31,22 +34,35 @@
 
             <button @click="getApi( pagination.current +1 )"
                 :disabled = "pagination.current === pagination.last"
-            >-></button>
+            >&gt;&gt;</button>
         </div>
     </div>
+    <!-- /elenco posts -->
+
+    <SideBarComp
+        :categories = "categories"
+        :tags = "tags"
+    />
+
+
 </div>
+<!-- /main div -->
+
 </template>
 
 <script>
 // import Axios from 'axios';
 import PostItemComp from '../partials/PostItemComp.vue';
 import LoaderComp from '../partials/LoaderComp.vue';
+import SideBarComp from '../partials/SideBarComp.vue'
 import {apiUrl} from '../../data/config';
 
 export default {
     name: "BlogComp",
     components: {
-        PostItemComp
+        PostItemComp,
+        LoaderComp,
+        SideBarComp
     },
 
     data() {
@@ -56,7 +72,9 @@ export default {
             pagination: {
                 current: null,
                 last: null
-            }
+            },
+            categories: [],
+            tags: []
         };
     },
 
@@ -70,38 +88,54 @@ export default {
 
             axios.get(this.apiUrl + "?page=" + page)
                 .then(response => {
-                this.posts = response.data.data;
+                this.posts = response.data.posts.data;
                 this.pagination = {
-                    current: response.data.current_page,
-                    last: response.data.last_page
+                    current: response.data.posts.current_page,
+                    last: response.data.posts.last_page
                 }
+                this.categories = response.data.categories;
+                this.tags = response.data.tags;
             });
         }
-    },
-    components: { PostItemComp, LoaderComp }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-    .box-loader{
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        padding: 10px;
-    }
 
-    .cards{
+    .container{
         display: flex;
-        flex-wrap: wrap;
-        margin: 25px auto;
-    }
 
-    .buttons-pagination{
-        button{
-            padding: 8px;
-            border-radius: 10px;
-            background-color: rgb(206, 232, 253);
+        .box-loader{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: 200px;
+            transform: translate(-50%, -50%);
         }
     }
+    .post-container{
+        flex-basis: 85%;
+
+        h1{
+            text-decoration: underline;
+            text-underline-offset: 10px;
+
+        }
+
+        .cards{
+            display: flex;
+            flex-wrap: wrap;
+            margin: 25px auto;
+        }
+
+        .buttons-pagination{
+            button{
+                padding: 8px;
+                border-radius: 10px;
+                background-color: rgb(206, 232, 253);
+            }
+        }
+    }
+
 </style>>

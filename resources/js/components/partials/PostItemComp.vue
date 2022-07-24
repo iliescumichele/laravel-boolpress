@@ -72,10 +72,11 @@ export default {
             background-color: rgb(229, 229, 229);
             text-decoration: none;
             color: rgb(0, 128, 255);
+            box-shadow: 1px 1px 2px rgb(108, 108, 108);
 
             &:hover{
                 transform: scale(1.02);
-                box-shadow: 2px 2px rgb(108, 108, 108);
+                box-shadow: 2px 2px 10px rgb(108, 108, 108);
             }
         }
     }
